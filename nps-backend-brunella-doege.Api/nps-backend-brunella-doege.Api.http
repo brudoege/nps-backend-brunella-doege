@@ -1,0 +1,6 @@
+@nps_backend_brunella_doege.Api_HostAddress = http://localhost:5208
+
+GET {{nps_backend_brunella_doege.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
