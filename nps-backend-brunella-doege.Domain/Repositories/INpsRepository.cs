@@ -1,4 +1,4 @@
-﻿using nps_backend_brunella_doege.Domain.Entidades;
+﻿using nps_backend_brunella_doege.Domain.Entities;
 
 namespace nps_backend_brunella_doege.Domain.Repositories
 {

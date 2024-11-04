@@ -3,7 +3,7 @@
 public enum CategoryType
 {
     OTHER,
-    CRASH,
+    PRODUCTACCESS,
     SLOWNESS,
     INTERFACE,
     BUGS,
@@ -17,7 +17,7 @@ public static class CategoryTypeExtensions
         return categoryType switch
         {
             CategoryType.OTHER => Guid.Parse("8656aec6-9f0f-41e1-a94c-49e2d49a5492"),
-            CategoryType.CRASH => Guid.Parse("e0001d6c-905e-42a0-8f2c-89184a6225da"),
+            CategoryType.PRODUCTACCESS => Guid.Parse("e0001d6c-905e-42a0-8f2c-89184a6225da"), 
             CategoryType.SLOWNESS => Guid.Parse("ab7e4d23-ce17-4049-9856-9f1cea110a7e"),
             CategoryType.INTERFACE => Guid.Parse("438109f9-c8bf-43b1-94a0-a186b758b1e1"),
             CategoryType.BUGS => Guid.Parse("883fdf80-70a2-4e36-bf0a-a291c1174cba"),
@@ -31,7 +31,7 @@ public static class CategoryTypeExtensions
         return categoryId switch
         {
             var g when g == Guid.Parse("8656aec6-9f0f-41e1-a94c-49e2d49a5492") => CategoryType.OTHER,
-            var g when g == Guid.Parse("e0001d6c-905e-42a0-8f2c-89184a6225da") => CategoryType.CRASH,
+            var g when g == Guid.Parse("e0001d6c-905e-42a0-8f2c-89184a6225da") => CategoryType.PRODUCTACCESS,
             var g when g == Guid.Parse("ab7e4d23-ce17-4049-9856-9f1cea110a7e") => CategoryType.SLOWNESS,
             var g when g == Guid.Parse("438109f9-c8bf-43b1-94a0-a186b758b1e1") => CategoryType.INTERFACE,
             var g when g == Guid.Parse("883fdf80-70a2-4e36-bf0a-a291c1174cba") => CategoryType.BUGS,

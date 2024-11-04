@@ -3,23 +3,28 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nps-backend-brunella-doege.Api", "nps-backend-brunella-doege.Api\nps-backend-brunella-doege.Api.csproj", "{0A75F7BD-78CC-4594-88B0-14E832D3D1AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nps-backend-brunella-doege.Api", "nps-backend-brunella-doege.Api\nps-backend-brunella-doege.Api.csproj", "{0A75F7BD-78CC-4594-88B0-14E832D3D1AA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{933479A1-C78E-47F0-9896-3D9EB831735B} = {933479A1-C78E-47F0-9896-3D9EB831735B}
 		{E300C757-CCAC-404C-821D-CD8F92D01D3E} = {E300C757-CCAC-404C-821D-CD8F92D01D3E}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nps-backend-brunella-doege.Application", "nps-backend-brunella-doege.Application\nps-backend-brunella-doege.Application.csproj", "{E300C757-CCAC-404C-821D-CD8F92D01D3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nps-backend-brunella-doege.Application", "nps-backend-brunella-doege.Application\nps-backend-brunella-doege.Application.csproj", "{E300C757-CCAC-404C-821D-CD8F92D01D3E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F11BEDB9-A13F-43B2-87A4-926FCCC55E8C} = {F11BEDB9-A13F-43B2-87A4-926FCCC55E8C}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nps-backend-brunella-doege.Domain", "nps-backend-brunella-doege.Domain\nps-backend-brunella-doege.Domain.csproj", "{F11BEDB9-A13F-43B2-87A4-926FCCC55E8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nps-backend-brunella-doege.Domain", "nps-backend-brunella-doege.Domain\nps-backend-brunella-doege.Domain.csproj", "{F11BEDB9-A13F-43B2-87A4-926FCCC55E8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nps-backend-brunella-doege.Infrastructure", "nps-backend-brunella-doege.Infrastructure\nps-backend-brunella-doege.Infrastructure.csproj", "{933479A1-C78E-47F0-9896-3D9EB831735B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nps-backend-brunella-doege.Infrastructure", "nps-backend-brunella-doege.Infrastructure\nps-backend-brunella-doege.Infrastructure.csproj", "{933479A1-C78E-47F0-9896-3D9EB831735B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E300C757-CCAC-404C-821D-CD8F92D01D3E} = {E300C757-CCAC-404C-821D-CD8F92D01D3E}
 		{F11BEDB9-A13F-43B2-87A4-926FCCC55E8C} = {F11BEDB9-A13F-43B2-87A4-926FCCC55E8C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nps_backend_brunella_doege.Tests", "nps_backend_brunella_doege.Tests\nps_backend_brunella_doege.Tests.csproj", "{B11F39A5-F453-4C26-A5CC-4C4CE426E364}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E300C757-CCAC-404C-821D-CD8F92D01D3E} = {E300C757-CCAC-404C-821D-CD8F92D01D3E}
 	EndProjectSection
 EndProject
 Global
@@ -44,6 +49,10 @@ Global
 		{933479A1-C78E-47F0-9896-3D9EB831735B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{933479A1-C78E-47F0-9896-3D9EB831735B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{933479A1-C78E-47F0-9896-3D9EB831735B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B11F39A5-F453-4C26-A5CC-4C4CE426E364}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B11F39A5-F453-4C26-A5CC-4C4CE426E364}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B11F39A5-F453-4C26-A5CC-4C4CE426E364}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B11F39A5-F453-4C26-A5CC-4C4CE426E364}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

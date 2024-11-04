@@ -1,46 +1,50 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using nps_backend_brunella_doege.Application.Configurations;
 using nps_backend_brunella_doege.Application.Service;
 using nps_backend_brunella_doege.Application.ViewModels;
 using System.Net;
 
 namespace nps_backend_brunella_doege.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/npsresult")]
     [ApiController]
     public class NpsResultController : ControllerBase
     {
         private readonly INpsResultService _service;
+        private readonly NpsSettings _npsSettings;
 
-        public NpsResultController(INpsResultService service)
+        public NpsResultController(INpsResultService service, IOptions<NpsSettings> npsSettings)
         {
             _service = service;
+            _npsSettings = npsSettings.Value;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] NpsResultManipulacaoViewModel npsManipulacaoViewModel)
+        public async Task<IActionResult> PostNps([FromBody] NpsResultInputViewModel npsInputViewModel)
         {
-            if (npsManipulacaoViewModel == null)
+            if (npsInputViewModel == null)
             {
                 return StatusCode(400, new { StatusCode = 400, Message = "Dados inválidos." });
             }
 
             try
             {
-                var npsId = await _service.Incluir(npsManipulacaoViewModel);
+                var npsId = await _service.IncludeNpsAsync(npsInputViewModel, _npsSettings.UrlCreate, _npsSettings.SystemId);
                 return StatusCode(200, new { StatusCode = 200, Message = "Resultado de Nps incluido com sucesso!", NpsId = npsId });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Erro ao incluir o resultado de Nps: {ex.Message}");
+                return StatusCode(500, $"Erro ao Include o resultado de Nps: {ex.Message}");
             }
         }
 
-        [HttpGet("listar")]
-        public async Task<IActionResult> GetAllResults()
+        [HttpGet("selectall")]
+        public async Task<IActionResult> SelectAllResults()
         {
             try
             {
-                var resultados = await _service.ListarTodos();
+                var resultados = await _service.SelectAllNpsAsync();
 
                 if (resultados == null || !resultados.Any())
                 {
@@ -55,12 +59,12 @@ namespace nps_backend_brunella_doege.Api.Controllers
             }
         }
 
-        [HttpGet("nps/{user}")]
+        [HttpGet("user={user}")]
         public async Task<IActionResult> GetNpsByUser(string user)
         {
             try
             {
-                var pesquisa = await _service.BuscarPesquisaNps(user);
+                var pesquisa = await _service.GetNpsAsync(user, _npsSettings.UrlQuestion, _npsSettings.SystemId);
 
                 if (pesquisa == null)
                 {
@@ -79,6 +83,5 @@ namespace nps_backend_brunella_doege.Api.Controllers
                 return StatusCode(500, new { StatusCode = 500, Message = $"Erro ao buscar pesquisa de Nps: {ex.Message}" });
             }
         }
-
     }
 }

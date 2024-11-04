@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using nps_backend_brunella_doege.Domain.Entidades;
+using nps_backend_brunella_doege.Domain.Entities;
 using nps_backend_brunella_doege.Infrastructure.Mapping;
 
 namespace nps_backend_brunella_doege.Infrastructure
 {
-    public class Contexto : DbContext
+    public class Context : DbContext
     {
         public DbSet<NpsResult> NpsResult { get; set; }
 
-        public Contexto(DbContextOptions<Contexto> options) : base(options)
+        public Context(DbContextOptions<Context> options) : base(options)
         {
 
         }

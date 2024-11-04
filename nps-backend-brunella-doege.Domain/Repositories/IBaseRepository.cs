@@ -2,8 +2,8 @@
 {
     public interface IBaseRepository<T>
     {
-        Task IncluirAsync(T entity);
+        Task IncludeAsync(T entity);
 
-        Task<List<T>> SelecionarTudoAsync();
+        Task<List<T>> SelectAllAsync();
     }
 }

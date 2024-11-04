@@ -1,11 +1,11 @@
-﻿using nps_backend_brunella_doege.Domain.Entidades;
+﻿using nps_backend_brunella_doege.Domain.Entities;
 using nps_backend_brunella_doege.Domain.Repositories;
 
-namespace nps_backend_brunella_doege.Infrastructure.Repositorios
+namespace nps_backend_brunella_doege.Infrastructure.Repositories
 {
     public class NpsResultRepository : BaseRepository<NpsResult>, INpsResultRepository    // BaseRepository usa Generics
     {
-        public NpsResultRepository(Contexto contexto) : base(contexto)
+        public NpsResultRepository(Context contexto) : base(contexto)
         {
         }
     }

@@ -2,7 +2,7 @@
 
 namespace nps_backend_brunella_doege.Application.ViewModels
 {
-    public class NpsResultManipulacaoViewModel
+    public class NpsResultInputViewModel
     {
         public CategoryType Category { get; set; }
         public string Comments { get; set; }

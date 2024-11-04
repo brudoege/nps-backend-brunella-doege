@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using nps_backend_brunella_doege.Application.Configurations;
 using nps_backend_brunella_doege.Application.Service;
 using nps_backend_brunella_doege.Domain.Repositories;
 using nps_backend_brunella_doege.Infrastructure;
-using nps_backend_brunella_doege.Infrastructure.Repositorios;
+using nps_backend_brunella_doege.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +29,9 @@ builder.Services.AddScoped<INpsResultService, NpsResultService>();
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped<INpsResultRepository, NpsResultRepository>();
 
-builder.Services.AddDbContext<Contexto>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Base")));
+builder.Services.AddDbContext<Context>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Base")));
+
+builder.Services.Configure<NpsSettings>(builder.Configuration.GetSection("NpsSettings"));
 
 var app = builder.Build();
 

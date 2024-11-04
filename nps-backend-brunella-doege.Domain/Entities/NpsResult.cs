@@ -1,4 +1,4 @@
-﻿namespace nps_backend_brunella_doege.Domain.Entidades
+﻿namespace nps_backend_brunella_doege.Domain.Entities
 {
     public class NpsResult : IEntity
     {

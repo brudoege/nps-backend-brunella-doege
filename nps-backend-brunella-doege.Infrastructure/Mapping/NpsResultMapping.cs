@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using nps_backend_brunella_doege.Domain.Entidades;
+using nps_backend_brunella_doege.Domain.Entities;
 using System.Xml.Linq;
 
 namespace nps_backend_brunella_doege.Infrastructure.Mapping

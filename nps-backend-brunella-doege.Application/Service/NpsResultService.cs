@@ -1,5 +1,5 @@
 ﻿using nps_backend_brunella_doege.Application.ViewModels;
-using nps_backend_brunella_doege.Domain.Entidades;
+using nps_backend_brunella_doege.Domain.Entities;
 using nps_backend_brunella_doege.Domain.Enums;
 using nps_backend_brunella_doege.Domain.Repositories;
 using System.Net.Http.Json;
@@ -10,7 +10,6 @@ namespace nps_backend_brunella_doege.Application.Service
     {
         private readonly INpsResultRepository _npsRepository;
         private readonly HttpClient _httpClient;
-        private static readonly string _systemId = "3c477fc7-0d4d-458a-6078-08dc43a0a620";
 
         public NpsResultService(INpsResultRepository npsRepository, HttpClient httpClient)
         {
@@ -18,20 +17,25 @@ namespace nps_backend_brunella_doege.Application.Service
             _httpClient = httpClient;
         }
 
-        public async Task<Guid> Incluir(NpsResultManipulacaoViewModel npsManipulacaoViewModel)
+        public async Task<Guid> IncludeNpsAsync(NpsResultInputViewModel npsInputViewModel, string urlCreate, string systemId)
         {
-            if (npsManipulacaoViewModel == null)
+            if (npsInputViewModel == null)
             {
-                throw new ArgumentNullException(nameof(npsManipulacaoViewModel));
+                throw new ArgumentNullException(nameof(npsInputViewModel));
+            }
+
+            if (urlCreate == null)
+            {
+                throw new ArgumentNullException(nameof(urlCreate));
             }
 
             var createdDate = DateTime.UtcNow;
 
-            var result = await PostNpsAsync(npsManipulacaoViewModel, createdDate);
+            var result = await PostNpsAsync(npsInputViewModel, createdDate, urlCreate, systemId);
 
             if (result.IsSuccessStatusCode)
             {
-                return await IncluirNpsAsync(npsManipulacaoViewModel, createdDate);
+                return await IncludeNpsSystemAsync(npsInputViewModel, createdDate, systemId);
             }
             else
             {
@@ -39,9 +43,9 @@ namespace nps_backend_brunella_doege.Application.Service
             }
         }
 
-        public async Task<List<NpsResultViewModel?>?> ListarTodos()
+        public async Task<List<NpsResultViewModel>> SelectAllNpsAsync()
         {
-            var listaNps = await _npsRepository.SelecionarTudoAsync();
+            var listaNps = await _npsRepository.SelectAllAsync();
 
             var npsViewModels = listaNps.Select(nps => new NpsResultViewModel
             {
@@ -58,57 +62,58 @@ namespace nps_backend_brunella_doege.Application.Service
         }
 
 
-        private async Task<HttpResponseMessage> PostNpsAsync(NpsResultManipulacaoViewModel npsManipulacaoViewModel, DateTime createdDate)
+        private async Task<HttpResponseMessage> PostNpsAsync(NpsResultInputViewModel npsInputViewModel, DateTime createdDate, string urlCreate, string systemId)
         {
-            var urlCreate = "https://nps-stg.ambevdevs.com.br/api/survey/create";
-
             var request = new HttpRequestMessage(HttpMethod.Post, urlCreate)
             {
                 Content = JsonContent.Create(new
                 {
-                    createdDate = createdDate,
-                    npsManipulacaoViewModel.Score,
-                    comments = npsManipulacaoViewModel.Comments,
-                    user = npsManipulacaoViewModel.UserId,
+                    createdDate,
+                    npsInputViewModel.Score,
+                    comments = npsInputViewModel.Comments,
+                    user = npsInputViewModel.UserId,
                     surveyType = 0,
-                    systemId = _systemId,
-                    categoryId = npsManipulacaoViewModel.Category.ToGuid()
+                    systemId,
+                    categoryId = npsInputViewModel.Category.ToGuid()
                 })
             };
-            request.Headers.Add("Authorization", _systemId);
+            request.Headers.Add("Authorization", systemId);
 
             return await _httpClient.SendAsync(request);
         }
 
-        private async Task<Guid> IncluirNpsAsync(NpsResultManipulacaoViewModel npsManipulacaoViewModel, DateTime createdDate)
+        private async Task<Guid> IncludeNpsSystemAsync(NpsResultInputViewModel npsInputViewModel, DateTime createdDate, string systemId)
         {
             var nps = new NpsResult
             {
-                SystemId = Guid.Parse(_systemId),
+                SystemId = Guid.Parse(systemId),
                 CreatedDate = createdDate,
-                CategoryId = npsManipulacaoViewModel.Category.ToGuid(),
-                Comments = npsManipulacaoViewModel.Comments,
-                Score = npsManipulacaoViewModel.Score,
-                UserId = npsManipulacaoViewModel.UserId
+                CategoryId = npsInputViewModel.Category.ToGuid(),
+                Comments = npsInputViewModel.Comments,
+                Score = npsInputViewModel.Score,
+                UserId = npsInputViewModel.UserId
             };
 
-            await _npsRepository.IncluirAsync(nps);
+            await _npsRepository.IncludeAsync(nps);
             return nps.Id;
         }
 
-        public async Task<HttpResponseMessage?> BuscarPesquisaNps(string user)
+        public async Task<HttpResponseMessage?> GetNpsAsync(string user, string urlQuestion, string systemId)
         {
             if (string.IsNullOrEmpty(user))
             {
                 throw new ArgumentNullException(nameof(user));
             }
 
-            var urlQuestion = "https://nps-stg.ambevdevs.com.br/api/question/check";
+            if (string.IsNullOrEmpty(urlQuestion))
+            {
+                throw new ArgumentNullException(nameof(urlQuestion));
+            }
 
-            var url = $"{urlQuestion}?user={user}&systemId={_systemId}";
+            var url = $"{urlQuestion}?user={user}&systemId={systemId}";
 
             var request = new HttpRequestMessage(HttpMethod.Get, url);
-            request.Headers.Add("Authorization", _systemId);
+            request.Headers.Add("Authorization", systemId);
 
             return await _httpClient.SendAsync(request);
         }
